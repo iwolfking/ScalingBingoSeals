@@ -1,0 +1,35 @@
+{
+  "MODIFIER_STABILITY": {
+    "instabilityPerCraft": 0.05,
+    "exhaustProbability": 0.25,
+    "curseColor": "#9C6E3B"
+  },
+  "MOTES": {
+    "clarityLevelCost": 1,
+    "purityLevelCost": 2,
+    "sanctityLevelCost": 4
+  },
+  "THEMES": [],
+  "LAYOUTS": [],
+  "OBJECTIVES": {
+  },
+  "TIMES": {
+
+  },
+  "SEALS": {
+    "the_vault:crystal_seal_prophet": [
+      {
+        "level": 0,
+        "input": [
+          "the_vault:vault_crystal"
+        ],
+        "objective": {
+          "type": "scaling_bingo",
+          "objective_probability": 1.0,
+          "sealCount": 1
+        }
+      }
+    ]
+  },
+  "PROPERTIES": []
+}

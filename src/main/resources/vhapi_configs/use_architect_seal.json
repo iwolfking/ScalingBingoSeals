@@ -17,7 +17,7 @@
 
   },
   "SEALS": {
-    "the_vault:crystal_seal_prophet": [
+    "the_vault:crystal_seal_architect": [
       {
         "level": 0,
         "input": [
@@ -25,7 +25,8 @@
         ],
         "objective": {
           "type": "scaling_bingo",
-          "objective_probability": 1.0
+          "objective_probability": 1.0,
+          "sealCount": 1
         }
       }
     ]
