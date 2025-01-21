@@ -22,6 +22,7 @@ public class MixinApplySealRecipe {
         CrystalData outputData = CrystalData.read(output);
         if(outputData.getObjective() instanceof ScalingBingoCrystalObjective scalingBingoCrystalObjective) {
             context.setName(scalingBingoCrystalObjective.getCrystalName());
+            context.setLevelCost(-1);
         }
     }
 }
