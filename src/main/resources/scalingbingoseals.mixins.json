@@ -2,11 +2,12 @@
   "required": true,
   "minVersion": "0.8",
   "package": "xyz.iwolfking.scalingbingoseals.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_17",
   "refmap": "scalingbingoseals.refmap.json",
   "mixins": [
     "MixinApplySealRecipe",
     "MixinClassicListenersLogic",
+    "MixinCrystalObjective",
     "MixinVaultCrystalConfig",
     "accessors.BingoTaskConfigAccessor"
   ],
