@@ -2,8 +2,8 @@ package xyz.iwolfking.scalingbingoseals.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import iskallia.vault.item.crystal.CrystalData;
-import iskallia.vault.item.crystal.recipe.AnvilContext;
-import iskallia.vault.item.crystal.recipe.SealAnvilRecipe;
+import iskallia.vault.recipe.anvil.AnvilContext;
+import iskallia.vault.recipe.anvil.SealAnvilRecipe;
 import net.minecraft.world.item.ItemStack;
 
 import org.spongepowered.asm.mixin.Mixin;

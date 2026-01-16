@@ -1,5 +1,7 @@
 package xyz.iwolfking.scalingbingoseals.mixin;
 
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import iskallia.vault.config.VaultCrystalConfig;
 import iskallia.vault.config.entry.LevelEntryList;
 import iskallia.vault.core.vault.player.ClassicListenersLogic;
@@ -25,9 +27,9 @@ import java.util.Map;
 public class MixinVaultCrystalConfig {
     @Shadow private Map<ResourceLocation, LevelEntryList<VaultCrystalConfig.SealEntry>> SEALS;
 
-    @Redirect(method = "lambda$applySeal$5", at = @At(value = "INVOKE", target = "Liskallia/vault/item/crystal/CrystalData;setObjective(Liskallia/vault/item/crystal/objective/CrystalObjective;)V"))
-    private static void modifyScalingBingoObjective(CrystalData instance, CrystalObjective objective) {
-        if(objective instanceof ScalingBingoCrystalObjective sealObjective) {
+    @WrapOperation(method = "lambda$applySeal$5", at = @At(value = "INVOKE", target = "Liskallia/vault/item/crystal/CrystalData;setObjective(Liskallia/vault/item/crystal/objective/CrystalObjective;)V"))
+    private static void modifyScalingBingoObjective(CrystalData instance, CrystalObjective objective, Operation<Void> original) {
+        if(objective instanceof ScalingBingoCrystalObjective) {
             if(instance.getObjective() instanceof ScalingBingoCrystalObjective scalingBingoCrystalObjective) {
                 ScalingBingoCrystalObjective newObjective = new ScalingBingoCrystalObjective(scalingBingoCrystalObjective.getObjectiveProbability(), scalingBingoCrystalObjective.getSealCount() + ScalingBingoSealsConfig.COMMON.sealAddCount.get());
                 instance.setObjective(newObjective);
@@ -38,6 +40,6 @@ public class MixinVaultCrystalConfig {
             }
         }
 
-        instance.setObjective(objective);
+        original.call(instance, objective);
     }
 }

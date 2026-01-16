@@ -1,6 +1,5 @@
 package xyz.iwolfking.scalingbingoseals;
 
-import com.mojang.logging.LogUtils;
 import iskallia.vault.item.crystal.CrystalData;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -10,18 +9,12 @@ import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import org.slf4j.Logger;
 import xyz.iwolfking.scalingbingoseals.config.ScalingBingoSealsConfig;
 import xyz.iwolfking.scalingbingoseals.init.VHAPIIntegration;
 import xyz.iwolfking.scalingbingoseals.objective.ScalingBingoCrystalObjective;
-import xyz.iwolfking.vhapi.VHAPI;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod("scalingbingoseals")
 public class ScalingBingoSeals {
-
-    // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
 
     public ScalingBingoSeals() {
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ScalingBingoSealsConfig.COMMON_SPEC, "scaling-bingo-seals-common.toml");

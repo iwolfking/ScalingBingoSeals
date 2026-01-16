@@ -3,6 +3,7 @@ package xyz.iwolfking.scalingbingoseals.objective;
 import com.google.gson.JsonObject;
 import iskallia.vault.VaultMod;
 import iskallia.vault.block.VaultCrateBlock;
+import iskallia.vault.config.sigil.SigilConfig;
 import iskallia.vault.core.data.adapter.Adapters;
 import iskallia.vault.core.random.RandomSource;
 import iskallia.vault.core.vault.*;
@@ -25,6 +26,7 @@ import net.minecraftforge.fml.DistExecutor;
 import xyz.iwolfking.scalingbingoseals.config.ScalingBingoSealsConfig;
 import xyz.iwolfking.scalingbingoseals.mixin.accessors.BingoTaskConfigAccessor;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,14 +52,11 @@ public class ScalingBingoCrystalObjective extends CrystalObjective {
     }
 
     @Override
-    public void configure(Vault vault, RandomSource random) {
+    public void configure(Vault vault, RandomSource random, @Nullable String sigil) {
         int level = ((VaultLevel)vault.get(Vault.LEVEL)).get();
+        Optional<SigilConfig.LevelEntry> entry = SigilConfig.getConfig(sigil).map((config) -> config.getLevel(level));
         vault.ifPresent(Vault.OBJECTIVES, (objectives) -> {
-            ModConfigs.BINGO.generate(VaultMod.id("default"), level).ifPresent((task) -> {
-                ((BingoTaskConfigAccessor)task.getConfig()).setWidth(getWidth());
-                ((BingoTaskConfigAccessor)task.getConfig()).setHeight(getHeight());
-                objectives.add(BingoObjective.of(task).add(GridGatewayObjective.of(this.objectiveProbability).add(AwardCrateObjective.ofConfig(VaultCrateBlock.Type.BINGO, "bingo", level, true)).add(VictoryObjective.of(300))));
-            });
+            ModConfigs.BINGO.generate((ResourceLocation)entry.map(SigilConfig.LevelEntry::getBingoPool).orElse(VaultMod.id("default")), level).ifPresent((task) -> objectives.add(BingoObjective.of(task, getWidth(), getHeight()).add(GridGatewayObjective.of(this.objectiveProbability).add(AwardCrateObjective.ofConfig(VaultCrateBlock.Type.BINGO, "bingo", level, true)).add(VictoryObjective.of(300)))));
             objectives.add(BailObjective.create(true, new ResourceLocation[]{ClassicPortalLogic.EXIT}));
             objectives.add(DeathObjective.create(true));
             objectives.set(Objectives.KEY, CrystalData.OBJECTIVE.getType(this));
@@ -65,7 +64,7 @@ public class ScalingBingoCrystalObjective extends CrystalObjective {
     }
 
     @Override
-    public void addText(List<Component> tooltip, int minIndex, TooltipFlag flag, float time) {
+    public void addText(List<Component> tooltip, int minIndex, TooltipFlag flag, float time, int level) {
         tooltip.add((new TextComponent("Objective: ")).append((new TextComponent(getHeight() + "x" + getWidth() + " Bingo")).withStyle(Style.EMPTY.withColor((Integer)this.getColor(time).orElseThrow()))));
     }
 
