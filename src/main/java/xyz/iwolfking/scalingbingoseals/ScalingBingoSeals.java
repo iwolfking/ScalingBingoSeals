@@ -12,6 +12,11 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import xyz.iwolfking.scalingbingoseals.config.ScalingBingoSealsConfig;
 import xyz.iwolfking.scalingbingoseals.init.VHAPIIntegration;
 import xyz.iwolfking.scalingbingoseals.objective.ScalingBingoCrystalObjective;
+import xyz.iwolfking.vhapi.api.LoaderRegistry;
+import xyz.iwolfking.vhapi.api.events.VaultConfigEvent;
+import xyz.iwolfking.vhapi.api.loaders.Processors;
+import xyz.iwolfking.vhapi.api.loaders.lib.VHAPIDataLoader;
+import xyz.iwolfking.vhapi.api.util.VHAPIProcesserUtils;
 
 @Mod("scalingbingoseals")
 public class ScalingBingoSeals {
@@ -27,16 +32,13 @@ public class ScalingBingoSeals {
     }
 
     private void setup(final FMLCommonSetupEvent event) {
-
         CrystalData.OBJECTIVE.register("scaling_bingo", ScalingBingoCrystalObjective.class, ScalingBingoCrystalObjective::new);
-        VHAPIIntegration.initiateConfigs();
         ScalingBingoCrystalObjective.DEFAULT_HEIGHT = ScalingBingoSealsConfig.COMMON.defaultHeight.get();
         ScalingBingoCrystalObjective.DEFAULT_WIDTH = ScalingBingoSealsConfig.COMMON.defaultWidth.get();
     }
 
-    // You can use SubscribeEvent and let the Event Bus discover methods to call
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-
+    public void onServerStarting(VaultConfigEvent.Begin event) {
+        VHAPIIntegration.initiateConfigs();
     }
 }

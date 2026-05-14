@@ -17,7 +17,6 @@ public class VHAPIIntegration {
         if(ScalingBingoSealsConfig.COMMON.useArchitectSeal.get()) {
             registerManualConfigFile("/vhapi_configs/use_architect_seal.json", new ResourceLocation("scaling_bingo","vault/crystal/replace_architect_seal"));
         }
-
     }
 
     public static void registerManualConfigFile(String filePath, ResourceLocation vhapiRegistryId) {
